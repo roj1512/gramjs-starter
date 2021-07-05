@@ -1,5 +1,6 @@
 import { createInterface } from "readline";
 import { TelegramClient } from "telegram";
+import { StringSession } from "telegram/sessions";
 
 const read = createInterface({
     input: process.stdin,
@@ -37,9 +38,12 @@ export async function start(
         },
     });
 
+    
+
     if (authRequested) {
         client.sendMessage("me", {
-            message: `${client.session.save()}`,
+            message: (client.session as StringSession).save(),
         });
+        console.log("String session sent to saved messages.")
     }
 }
